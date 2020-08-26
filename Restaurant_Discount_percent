@@ -1,0 +1,51 @@
+# Enter your code here.
+
+
+class FoodItem:
+    def __init__(self,i_id,i_name,i_category,i_price):
+        self.i_id=i_id
+        self.i_name=i_name
+        self.i_category=i_category
+        self.i_price=i_price
+
+
+    def provideDiscount(self,pno):
+        discount=self.i_price*pno/100
+        up=self.i_price-discount
+        if pno<=0:
+            return self.i_price
+        else:
+            self.i_price=self.i_price-discount
+    
+class Restaurant:
+    def __init__(self,rest_name,fooditem_list):
+        self.rest_name=rest_name
+        self.fooditem_list=fooditem_list
+        
+    def retrieveUpdatedPrice(self,pno,idd):
+        for oo in self.fooditem_list:
+            if idd==oo.i_id:
+                ans=oo.provideDiscount(pno)
+                return oo
+        return None    
+
+if __name__=='__main__':
+    fooditem_list=[]
+    n=int(input())
+    for i in range(n):
+        i_id=int(input())
+        i_name=input()
+        i_category=input()
+        i_price=int(input())
+        ob=FoodItem(i_id,i_name,i_category,i_price)
+        fooditem_list.append(ob)
+    
+    idd=int(input())
+    pno=int(input())
+    o=Restaurant("ABC",fooditem_list)
+    r1=o.retrieveUpdatedPrice(pno,idd)
+    if r1!=None:
+        print(r1.i_name+" - "+str(r1.i_price))
+    else:
+        print("No Food item exists which matches the search criteria")
+     
